@@ -4,6 +4,8 @@ package com.cybernet.cybernetserver.entities;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.List;
+
 @Entity
 @Getter
 @Setter
@@ -13,7 +15,7 @@ import lombok.*;
 public class Product {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Long id;
 
@@ -26,6 +28,11 @@ public class Product {
     @Column(name = "serial_number")
     private String serialNumber;
 
+    @Column(name = "preview_image_id")
+    private Long previewImageId;
+    @Column(name = "name")
+    private String name;
+
     @ManyToOne
     @JoinColumn(name = "manufacturer_id")
     private Manufacturer manufacturer;
@@ -37,4 +44,13 @@ public class Product {
     @ManyToOne
     @JoinColumn(name = "subcategory_id")
     private Subcategory subcategory;
+
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "product")
+    private List<ProductImage> images;
+
+
+
+    @OneToOne(mappedBy = "product")
+    @PrimaryKeyJoinColumn
+    private ProductAttributes productAttributes;
 }

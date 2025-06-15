@@ -11,7 +11,7 @@ import lombok.*;
 @NoArgsConstructor
 public class Address {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Long id;
 
@@ -34,7 +34,7 @@ public class Address {
     private String postcode;
 
     @ManyToOne(cascade = CascadeType.REFRESH)
-    @JoinColumn(name = "customer_id")
+    @JoinColumn(name = "user_id")
     private User user;
 
 }

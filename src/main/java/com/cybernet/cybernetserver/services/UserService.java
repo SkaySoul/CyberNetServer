@@ -1,20 +1,19 @@
 package com.cybernet.cybernetserver.services;
 
-import com.cybernet.cybernetserver.dto.UserDTO;
 import com.cybernet.cybernetserver.entities.User;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface UserService {
-    public User createUser(UserDTO dto);
 
-    public List<User> getUser();
+    List<User> getUsers();
 
-    public List<User> getUsersByUsername(String username);
+    Optional<User> findByUsername(String username);
 
-    public User saveUser(User user);
+    void deleteUser(Long id);
 
-    public void deleteUser(Long id);
+    User findById(Long id);
+    void save(User user);
 
-    public User getUserById(Long id);
 }

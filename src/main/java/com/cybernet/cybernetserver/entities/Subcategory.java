@@ -21,6 +21,10 @@ public class Subcategory {
     @Column(name = "name", nullable = false)
     private String name;
 
+    @ManyToOne
+    @JoinColumn(name = "category_id")
+    private Category category;
+
     @OneToMany(mappedBy = "subcategory")
     private List<Product> products;
 

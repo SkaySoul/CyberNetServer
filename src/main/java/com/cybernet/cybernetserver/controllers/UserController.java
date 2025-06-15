@@ -1,12 +1,16 @@
 package com.cybernet.cybernetserver.controllers;
 
 import com.cybernet.cybernetserver.dto.UserDTO;
+import com.cybernet.cybernetserver.dtoconverter.UserDTOConverter;
 import com.cybernet.cybernetserver.entities.User;
 import com.cybernet.cybernetserver.services.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -15,32 +19,48 @@ import java.util.List;
 @RequiredArgsConstructor
 public class UserController {
 
+    private final UserDTOConverter userDTOConverter;
     private final UserService userService;
 
-    @PostMapping()
-    public ResponseEntity<User> create(@RequestBody UserDTO dto){
-        return new ResponseEntity<>(userService.createUser(dto), HttpStatus.OK);
-    }
 
     @GetMapping()
     public ResponseEntity<List<User>> readAll(){
-        return new ResponseEntity<>(userService.getUser(), HttpStatus.OK);
+        return new ResponseEntity<>(userService.getUsers(), HttpStatus.OK);
     }
 
-    @GetMapping("/{username}")
-    public ResponseEntity<List<User>> readAll(@PathVariable String username){
-        return new ResponseEntity<>(userService.getUsersByUsername(username), HttpStatus.OK);
+    @GetMapping(value = "/{username}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<UserDTO> readAll(@PathVariable String username){
+        return ResponseEntity.ok(
+                userDTOConverter.mapUserToUserDTO(
+                        userService.findByUsername(username)
+                                .orElseThrow(() -> new RuntimeException("User not found"))
+                )
+        );
     }
 
-    @PutMapping
-    public ResponseEntity<User> update(@RequestBody User user){
-        return new ResponseEntity<>(userService.saveUser(user), HttpStatus.OK);
-    }
+
+//    public ResponseEntity<UserDTO> mappingResponseGetUserByUsername(){
+//
+//    }
+
+//    @PutMapping
+//    public ResponseEntity<User> update(@RequestBody User user){
+//        return new ResponseEntity<>(userService.saveUser(user), HttpStatus.OK);
+//    }
 
 
     @DeleteMapping("/{id}")
     public HttpStatus delete(@PathVariable Long id){
         userService.deleteUser(id);
         return HttpStatus.OK;
+    }
+
+    @GetMapping("/me")
+    public ResponseEntity<UserDTO> getCurrentUser(Authentication authentication) {
+        String username = authentication.getName();
+        System.out.println("Authenticated user: " + authentication.getName());
+        User user = userService.findByUsername(username)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found"));
+        return ResponseEntity.ok(userDTOConverter.mapUserToUserDTO(user));
     }
 }
