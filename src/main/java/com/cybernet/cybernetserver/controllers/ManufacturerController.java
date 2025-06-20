@@ -1,9 +1,7 @@
 package com.cybernet.cybernetserver.controllers;
 
 import com.cybernet.cybernetserver.dto.ManufacturerDTO;
-import com.cybernet.cybernetserver.dto.SubcategoryDTO;
 import com.cybernet.cybernetserver.services.ManufacturerService;
-import com.cybernet.cybernetserver.services.SubcategoryService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

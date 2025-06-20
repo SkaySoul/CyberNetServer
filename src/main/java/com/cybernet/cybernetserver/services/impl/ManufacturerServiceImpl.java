@@ -2,10 +2,8 @@ package com.cybernet.cybernetserver.services.impl;
 
 
 import com.cybernet.cybernetserver.dto.ManufacturerDTO;
-import com.cybernet.cybernetserver.dto.ProductDTO;
 import com.cybernet.cybernetserver.dtoconverter.ManufacturerDTOConverter;
 import com.cybernet.cybernetserver.entities.Manufacturer;
-import com.cybernet.cybernetserver.entities.Product;
 import com.cybernet.cybernetserver.repositories.ManufacturerRepository;
 import com.cybernet.cybernetserver.services.ManufacturerService;
 import lombok.AllArgsConstructor;

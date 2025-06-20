@@ -1,9 +1,7 @@
 package com.cybernet.cybernetserver.dtoconverter;
 
-import com.cybernet.cybernetserver.dto.FullProductDTO;
 import com.cybernet.cybernetserver.dto.ManufacturerDTO;
 import com.cybernet.cybernetserver.entities.Manufacturer;
-import com.cybernet.cybernetserver.entities.Product;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
