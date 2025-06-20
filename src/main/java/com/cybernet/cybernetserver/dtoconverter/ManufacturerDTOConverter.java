@@ -3,11 +3,13 @@ package com.cybernet.cybernetserver.dtoconverter;
 import com.cybernet.cybernetserver.dto.ManufacturerDTO;
 import com.cybernet.cybernetserver.entities.Manufacturer;
 import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 
 @Component
 @AllArgsConstructor
+@NoArgsConstructor
 public class ManufacturerDTOConverter {
     private ModelMapper modelMapper;
 
