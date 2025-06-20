@@ -25,43 +25,35 @@ public class ProductController {
 
     @GetMapping()
     public ResponseEntity<List<ProductDTO>> getAll() {
-        List<ProductDTO> dtoList = productService.getAllProducts();
-        return ResponseEntity.ok(dtoList);
+        return ResponseEntity.ok(productService.getAllProducts());
     }
 
 
     @GetMapping("/{id}")
     public ResponseEntity<ProductDTO> getById(@PathVariable Long id) {
-        ProductDTO dto = productService.getProductById(id);
-        return ResponseEntity.ok(dto);
+        return ResponseEntity.ok(productService.getProductById(id));
     }
 
     @GetMapping("/full/{id}")
     public ResponseEntity<FullProductDTO> getFullById(@PathVariable Long id) {
-        FullProductDTO fullDto = productService.getFullProductById(id);
-        return ResponseEntity.ok(fullDto);
+        return ResponseEntity.ok(productService.getFullProductById(id));
     }
 
 
     @GetMapping("/category/{catId}")
     public ResponseEntity<List<ProductDTO>> getByCategory(@PathVariable Long catId) {
-        List<ProductDTO> dtos = productService.getByCategoryId(catId);
-        return ResponseEntity.ok(dtos);
+        return ResponseEntity.ok(productService.getByCategoryId(catId));
     }
 
 
     @PostMapping
     public ResponseEntity<ProductDTO> create(@RequestBody ProductDTO dto) {
-        Product created = productService.createProduct(dto);
-        ProductDTO result = productDTOConverter.mapProductToProductDTO(created);
-        return ResponseEntity.ok(result);
+        return ResponseEntity.ok(productDTOConverter.mapProductToProductDTO(productService.createProduct(dto)));
     }
 
     @PutMapping
     public ResponseEntity<ProductDTO> update(@RequestBody ProductDTO dto) {
-        Product updated = productService.updateProduct(dto);
-        ProductDTO result = productDTOConverter.mapProductToProductDTO(updated);
-        return ResponseEntity.ok(result);
+        return ResponseEntity.ok(productDTOConverter.mapProductToProductDTO(productService.updateProduct(dto)));
     }
 
     @DeleteMapping("/{id}")

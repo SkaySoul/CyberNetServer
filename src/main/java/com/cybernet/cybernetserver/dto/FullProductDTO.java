@@ -8,7 +8,7 @@ public class FullProductDTO {
     private Long id;
     private int amount;
     private double price;
-    private String serialNumber;
+    private String productCode;
     private Long manufacturerId;
     private Long categoryId;
     private Long subcategoryId;

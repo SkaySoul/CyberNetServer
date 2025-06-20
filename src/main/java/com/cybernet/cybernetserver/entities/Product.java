@@ -25,8 +25,8 @@ public class Product {
     @Column(name = "price")
     private double price;
 
-    @Column(name = "serial_number")
-    private String serialNumber;
+    @Column(name = "product_code")
+    private String productCode;
 
     @Column(name = "preview_image_id")
     private Long previewImageId;

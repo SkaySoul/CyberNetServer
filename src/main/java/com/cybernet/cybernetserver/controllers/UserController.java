@@ -39,16 +39,6 @@ public class UserController {
     }
 
 
-//    public ResponseEntity<UserDTO> mappingResponseGetUserByUsername(){
-//
-//    }
-
-//    @PutMapping
-//    public ResponseEntity<User> update(@RequestBody User user){
-//        return new ResponseEntity<>(userService.saveUser(user), HttpStatus.OK);
-//    }
-
-
     @DeleteMapping("/{id}")
     public HttpStatus delete(@PathVariable Long id){
         userService.deleteUser(id);

@@ -3,10 +3,7 @@ package com.cybernet.cybernetserver.services.impl;
 import com.cybernet.cybernetserver.dto.FullProductDTO;
 import com.cybernet.cybernetserver.dto.ProductDTO;
 import com.cybernet.cybernetserver.dto.ProductImageDTO;
-import com.cybernet.cybernetserver.dtoconverter.FullProductDTOConverter;
-import com.cybernet.cybernetserver.dtoconverter.ProductAttributesDTOConverter;
-import com.cybernet.cybernetserver.dtoconverter.ProductDTOConverter;
-import com.cybernet.cybernetserver.dtoconverter.ProductImageDTOConverter;
+import com.cybernet.cybernetserver.dtoconverter.*;
 import com.cybernet.cybernetserver.entities.Product;
 import com.cybernet.cybernetserver.entities.ProductImage;
 import com.cybernet.cybernetserver.repositories.ProductAttributeRepository;
@@ -38,13 +35,13 @@ public class ProductServiceImpl implements ProductService {
     private ProductImageRepository imageRepository;
     private ProductImageDTOConverter imageDTOConverter;
     private ProductAttributesDTOConverter productAttributesDTOConverter;
-
+    private final ManufacturerDTOConverter manufacturerDTOConverter;
     public Product createProduct(FullProductDTO dto){
         return productRepository.save(Product.builder()
-                .serialNumber(dto.getSerialNumber())
+                .productCode(dto.getProductCode())
                 .amount(dto.getAmount())
                 .price(dto.getPrice())
-                .manufacturer(manufacturerService.getManufacturerById(dto.getManufacturerId()))
+                .manufacturer(manufacturerDTOConverter.mapManufacturerDTOtoManufacturer(manufacturerService.getManufacturerById(dto.getManufacturerId())))
                 .category(categoryService.getCategoryById(dto.getCategoryId()))
                 .subcategory(subcategoryService.getSubcategoryById(dto.getSubcategoryId()))
                 .build());
